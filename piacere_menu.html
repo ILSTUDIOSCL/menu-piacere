@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Piacere Pastas — Carta Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crema: #E7DDB5;
+    --crema-light: #F2EDD4;
+    --burdeo: #7A2E2E;
+    --burdeo-dark: #5C1F1F;
+    --dorado: #C9A96A;
+    --dorado-light: #DEC08B;
+    --gris: #2E2E2E;
+    --gris-medio: #5A5A5A;
+    --blanco: #FDFBF5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--crema);
+    font-family: 'Jost', sans-serif;
+    color: var(--gris);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(160deg, var(--burdeo-dark) 0%, var(--burdeo) 100%);
+    padding: 40px 20px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A96A' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
+  }
+  .header-logo-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  .header-logo-circle {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    border: 3px solid var(--dorado);
+    background: var(--burdeo-dark);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 0 0 6px rgba(201,169,106,0.15), 0 8px 32px rgba(0,0,0,0.4);
+    overflow: hidden;
+    position: relative;
+  }
+  .logo-svg {
+    width: 64px; height: 64px;
+  }
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--crema-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .header-divider {
+    width: 50px; height: 1.5px;
+    background: var(--dorado);
+    margin: 10px auto;
+    position: relative;
+  }
+  .header-divider::before, .header-divider::after {
+    content: '✦';
+    color: var(--dorado);
+    font-size: 9px;
+    position: absolute; top: -5px;
+  }
+  .header-divider::before { left: -16px; }
+  .header-divider::after { right: -16px; }
+  .header-subtitle {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--dorado-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  /* ── NAV ── */
+  .nav-wrap {
+    background: var(--blanco);
+    padding: 14px 0;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 20px rgba(122,46,46,0.10);
+    border-bottom: 1.5px solid rgba(201,169,106,0.2);
+  }
+  .nav-scroll {
+    display: flex; gap: 8px;
+    overflow-x: auto; padding: 0 16px;
+    scrollbar-width: none;
+  }
+  .nav-scroll::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(201,169,106,0.4);
+    background: transparent;
+    color: var(--gris-medio);
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--burdeo);
+    border-color: var(--burdeo);
+    color: var(--crema-light);
+  }
+
+  /* ── SECTIONS ── */
+  .section { padding: 32px 16px 8px; }
+  .section-header { margin-bottom: 22px; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600;
+    color: var(--burdeo);
+    letter-spacing: 1px;
+  }
+  .section-subtitle {
+    font-size: 12px; font-weight: 300;
+    color: var(--gris-medio);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .section-line {
+    width: 36px; height: 2px;
+    background: var(--dorado);
+    margin-top: 8px;
+    border-radius: 2px;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (min-width: 480px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 700px) {
+    .cards-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .card {
+    background: var(--blanco);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(46,46,46,0.08), 0 1px 4px rgba(46,46,46,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: fadeUp 0.5s ease both;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(122,46,46,0.13); }
+  .card-img-wrap {
+    width: 100%; aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #d4c4a0 0%, #c8b88a 100%);
+  }
+  .card-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .card:hover .card-img-wrap img { transform: scale(1.05); }
+  .card-body { padding: 12px 12px 14px; }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; font-weight: 600;
+    color: var(--gris); line-height: 1.3;
+  }
+  .card-desc {
+    font-size: 11px; font-weight: 300;
+    color: var(--gris-medio);
+    margin-top: 4px; line-height: 1.5;
+  }
+  .card-price {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--burdeo);
+    margin-top: 8px;
+  }
+  .card-price::before { content: ''; }
+
+  /* ── PASTAS SECTION ── */
+  .pasta-base-card {
+    background: var(--blanco);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(46,46,46,0.08);
+    margin-bottom: 20px;
+  }
+  .pasta-base-img {
+    width: 100%; aspect-ratio: 16/7;
+    overflow: hidden; background: linear-gradient(135deg, #d4c4a0 0%, #c8b88a 100%);
+  }
+  .pasta-base-img img { width:100%; height:100%; object-fit:cover; display:block; }
+  .pasta-base-body { padding: 16px; }
+  .pasta-base-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600; color: var(--gris);
+  }
+  .pasta-base-desc { font-size: 12px; color: var(--gris-medio); margin-top:4px; }
+  .pasta-base-price { font-size: 16px; font-weight: 600; color: var(--burdeo); margin-top:10px; }
+
+  .pasta-options {
+    background: var(--blanco);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(46,46,46,0.06);
+  }
+  .pasta-options-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; font-weight: 600; color: var(--burdeo);
+    margin-bottom: 12px;
+  }
+  .pasta-group { margin-bottom: 14px; }
+  .pasta-group-label {
+    font-size: 10px; font-weight: 600;
+    color: var(--dorado);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .pasta-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pasta-tag {
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--crema);
+    border: 1px solid rgba(201,169,106,0.3);
+    font-size: 12px; color: var(--gris);
+  }
+  .pasta-extras { display: flex; flex-direction: column; gap: 6px; }
+  .pasta-extra-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(201,169,106,0.15);
+    font-size: 13px;
+  }
+  .pasta-extra-row:last-child { border-bottom: none; }
+  .pasta-extra-price { font-weight: 600; color: var(--burdeo); font-size: 12px; }
+
+  /* ── PIZZA / PLANOS ── */
+  .simple-list {
+    background: var(--blanco);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(46,46,46,0.06);
+    margin-bottom: 10px;
+  }
+  .simple-list-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(201,169,106,0.12);
+    transition: background 0.2s;
+  }
+  .simple-list-item:last-child { border-bottom: none; }
+  .simple-list-item:hover { background: rgba(231,221,181,0.3); }
+  .simple-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; font-weight: 500; color: var(--gris);
+  }
+  .simple-item-price { font-size: 14px; font-weight: 600; color: var(--burdeo); }
+
+  /* ── BEBIDAS ── */
+  .bebidas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .bebida-card {
+    background: var(--blanco);
+    border-radius: 14px;
+    padding: 16px 10px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(46,46,46,0.06);
+  }
+  .bebida-icon { font-size: 26px; margin-bottom: 6px; }
+  .bebida-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; font-weight: 600; color: var(--gris);
+  }
+  .bebida-price { font-size: 13px; font-weight: 600; color: var(--burdeo); margin-top: 4px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--burdeo-dark);
+    padding: 28px 20px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--crema-light);
+    letter-spacing: 2px;
+  }
+  .footer-text {
+    font-size: 11px; color: var(--dorado);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .footer-divider { width: 30px; height: 1px; background: var(--dorado); margin: 12px auto; opacity: 0.5; }
+  .footer-note { font-size: 11px; color: rgba(231,221,181,0.5); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Stagger for cards */
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.10s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.20s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+  .card:nth-child(6) { animation-delay: 0.30s; }
+
+  .placeholder-img {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 6px;
+    color: rgba(122,46,46,0.3);
+    font-size: 32px;
+  }
+  .placeholder-img span { font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 300; letter-spacing: 1px; text-transform: uppercase; }
+
+  .badge-vegano {
+    display: inline-block;
+    background: #4a8c4a; color: white;
+    font-size: 9px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 999px;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo-wrap">
+    <div class="header-logo-circle">
+      <!-- SVG Logo artesanal de pasta/restaurante italiano -->
+      <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Plato base -->
+        <ellipse cx="32" cy="38" rx="22" ry="6" fill="none" stroke="#C9A96A" stroke-width="1.5"/>
+        <!-- Tazón -->
+        <path d="M10 32 Q10 50 32 50 Q54 50 54 32" fill="none" stroke="#C9A96A" stroke-width="1.5"/>
+        <!-- Pasta nido -->
+        <path d="M22 32 Q32 22 42 32 Q32 40 22 32Z" fill="none" stroke="#E7DDB5" stroke-width="1.5"/>
+        <path d="M25 30 Q32 24 39 30" fill="none" stroke="#E7DDB5" stroke-width="1"/>
+        <path d="M25 34 Q32 38 39 34" fill="none" stroke="#E7DDB5" stroke-width="1"/>
+        <!-- Tenedor -->
+        <line x1="32" y1="10" x2="32" y2="22" stroke="#C9A96A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="28" y1="10" x2="28" y2="16" stroke="#C9A96A" stroke-width="1" stroke-linecap="round"/>
+        <line x1="36" y1="10" x2="36" y2="16" stroke="#C9A96A" stroke-width="1" stroke-linecap="round"/>
+        <line x1="30" y1="10" x2="30" y2="16" stroke="#C9A96A" stroke-width="1" stroke-linecap="round"/>
+        <line x1="34" y1="10" x2="34" y2="16" stroke="#C9A96A" stroke-width="1" stroke-linecap="round"/>
+        <!-- Hoja de albahaca decorativa -->
+        <path d="M42 18 Q46 14 50 18 Q46 22 42 18Z" fill="#C9A96A" opacity="0.7"/>
+      </svg>
+    </div>
+  </div>
+  <h1 class="header-title">Piacere Pastas</h1>
+  <div class="header-divider"></div>
+  <p class="header-subtitle">Cocina Italiana Artesanal</p>
+</header>
+
+<!-- NAV -->
+<nav class="nav-wrap">
+  <div class="nav-scroll">
+    <button class="nav-btn active" onclick="scrollTo('antipasti', this)">Antipasti</button>
+    <button class="nav-btn" onclick="scrollTo('pastas', this)">Pastas</button>
+    <button class="nav-btn" onclick="scrollTo('especialidades', this)">Especialidades</button>
+    <button class="nav-btn" onclick="scrollTo('pizzas', this)">Pizzas</button>
+    <button class="nav-btn" onclick="scrollTo('principales', this)">Principales</button>
+    <button class="nav-btn" onclick="scrollTo('postres', this)">Postres</button>
+    <button class="nav-btn" onclick="scrollTo('bebidas', this)">Bebidas</button>
+  </div>
+</nav>
+
+<!-- ── ANTIPASTI ── -->
+<section class="section" id="antipasti">
+  <div class="section-header">
+    <h2 class="section-title">Antipasti</h2>
+    <p class="section-subtitle">Para comenzar</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?w=400&q=80" alt="Bruschettas" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍅<span>Bruschettas</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Bruschettas Clásicas</div>
+        <div class="card-desc">Pan tostado con tomate fresco, ajo y albahaca</div>
+        <div class="card-price">$5.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" alt="Carpaccio" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🥩<span>Carpaccio</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Carpaccio</div>
+        <div class="card-desc">Láminas finas con limón, aceite de oliva y parmesano</div>
+        <div class="card-price">$9.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Calamares" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🦑<span>Calamares</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Calamares Fritos</div>
+        <div class="card-desc">Crujientes con salsa de la casa</div>
+        <div class="card-price">$8.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1551248429-40975aa4de74?w=400&q=80" alt="Champiñones" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍄<span>Champiñones</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Champiñones al Ajillo</div>
+        <div class="card-desc">Salteados con ajo y aceite de oliva</div>
+        <div class="card-price">$6.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Prosciutto" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍖<span>Prosciutto</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Prosciutto</div>
+        <div class="card-desc">Jamón curado con contrastes frescos</div>
+        <div class="card-price">$10.900</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PASTAS ── -->
+<section class="section" id="pastas">
+  <div class="section-header">
+    <h2 class="section-title">Pastas Artesanales</h2>
+    <p class="section-subtitle">Hechas en casa todos los días</p>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="pasta-base-card">
+    <div class="pasta-base-img">
+      <img src="https://images.unsplash.com/photo-1551183053-bf91798d792d?w=600&q=80" alt="Pasta" loading="lazy" onerror="this.style.display='none'">
+    </div>
+    <div class="pasta-base-body">
+      <div class="pasta-base-title">Pasta Base + Salsa</div>
+      <div class="pasta-base-desc">Elige tu combinación ideal</div>
+      <div class="pasta-base-price">$8.900</div>
+    </div>
+  </div>
+
+  <div class="pasta-options">
+    <div class="pasta-options-title">Personaliza tu pasta</div>
+
+    <div class="pasta-group">
+      <div class="pasta-group-label">Tipo de Pasta</div>
+      <div class="pasta-tags">
+        <span class="pasta-tag">Spaghetti</span>
+        <span class="pasta-tag">Fettuccine</span>
+        <span class="pasta-tag">Ravioli</span>
+      </div>
+    </div>
+
+    <div class="pasta-group">
+      <div class="pasta-group-label">Salsa</div>
+      <div class="pasta-tags">
+        <span class="pasta-tag">Pomodoro</span>
+        <span class="pasta-tag">Boloñesa</span>
+        <span class="pasta-tag">Alfredo</span>
+        <span class="pasta-tag">Pesto</span>
+        <span class="pasta-tag">Arrabbiata</span>
+        <span class="pasta-tag">Cuatro Quesos</span>
+      </div>
+    </div>
+
+    <div class="pasta-group">
+      <div class="pasta-group-label">Agregados</div>
+      <div class="pasta-extras">
+        <div class="pasta-extra-row"><span>🍗 Pollo</span><span class="pasta-extra-price">+ $2.500</span></div>
+        <div class="pasta-extra-row"><span>🍤 Camarones</span><span class="pasta-extra-price">+ $3.500</span></div>
+        <div class="pasta-extra-row"><span>🥓 Tocino</span><span class="pasta-extra-price">+ $2.000</span></div>
+        <div class="pasta-extra-row"><span>🍖 Jamón</span><span class="pasta-extra-price">+ $2.000</span></div>
+        <div class="pasta-extra-row"><span>🥦 Verduras</span><span class="pasta-extra-price">+ $1.500</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ESPECIALIDADES ── -->
+<section class="section" id="especialidades">
+  <div class="section-header">
+    <h2 class="section-title">Especialidades</h2>
+    <p class="section-subtitle">Recetas de la casa</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&q=80" alt="Camarones tocino" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍤<span>Camarones</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Pasta Camarones & Tocino</div>
+        <div class="card-desc">Cremosa con notas ahumadas</div>
+        <div class="card-price">$12.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1574894709920-11b28be1e0d4?w=400&q=80" alt="Pollo verduras" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍗<span>Pollo</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Pasta Pollo & Verduras</div>
+        <div class="card-desc">Ligera y equilibrada</div>
+        <div class="card-price">$11.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=80" alt="Jamon champiñones" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍄<span>Champiñones</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Jamón, Champiñones & Choclo</div>
+        <div class="card-desc">Suave y cremosa</div>
+        <div class="card-price">$11.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1540914124281-342587941389?w=400&q=80" alt="Vegana" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🌱<span>Vegana</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Opción Vegana</div>
+        <div class="card-desc">Vegetales de temporada</div>
+        <span class="badge-vegano">🌱 Vegano</span>
+        <div class="card-price">$10.900</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PIZZAS ── -->
+<section class="section" id="pizzas">
+  <div class="section-header">
+    <h2 class="section-title">Pizzas</h2>
+    <p class="section-subtitle">Al estilo napolitano</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&q=80" alt="Margarita" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍕<span>Margarita</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Margarita</div>
+        <div class="card-desc">Tomate, mozzarella y albahaca fresca</div>
+        <div class="card-price">$8.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" alt="Napolitana" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍕<span>Napolitana</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Napolitana</div>
+        <div class="card-desc">Tomate, anchoas y alcaparras</div>
+        <div class="card-price">$9.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?w=400&q=80" alt="Prosciutto" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍕<span>Prosciutto</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Prosciutto</div>
+        <div class="card-desc">Jamón curado y rúcula fresca</div>
+        <div class="card-price">$10.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80" alt="Salame" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍕<span>Salame</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Salame</div>
+        <div class="card-desc">Salame italiano y aceitunas negras</div>
+        <div class="card-price">$10.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=400&q=80" alt="Cuatro quesos" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🧀<span>Cuatro Quesos</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Cuatro Quesos</div>
+        <div class="card-desc">Mozzarella, gorgonzola, parmesano y brie</div>
+        <div class="card-price">$11.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1548365328-8c6db3220e4d?w=400&q=80" alt="Vegetariana" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🌿<span>Vegetariana</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Vegetariana</div>
+        <div class="card-desc">Pimientos, champiñones y tomates cherry</div>
+        <span class="badge-vegano">🌱 Vegano</span>
+        <div class="card-price">$10.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&q=80" alt="Mariscos" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🦞<span>Mariscos</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Mariscos</div>
+        <div class="card-desc">Camarones, mejillones y calamar</div>
+        <div class="card-price">$12.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=400&q=80" alt="Gourmet" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">⭐<span>Gourmet</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Gourmet</div>
+        <div class="card-desc">Ingredientes premium de temporada</div>
+        <div class="card-price">$13.900</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PRINCIPALES ── -->
+<section class="section" id="principales">
+  <div class="section-header">
+    <h2 class="section-title">Principales</h2>
+    <p class="section-subtitle">Platos de fondo</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=400&q=80" alt="Pollo italiano" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍗<span>Pollo</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Pollo Estilo Italiano</div>
+        <div class="card-desc">Con hierbas mediterráneas y limón</div>
+        <div class="card-price">$11.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&q=80" alt="Carne" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🥩<span>Carne</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Carnes con Salsas</div>
+        <div class="card-desc">Corte del día con salsa de la casa</div>
+        <div class="card-price">$14.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Mariscos" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🐟<span>Mariscos</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Pescados y Mariscos</div>
+        <div class="card-desc">Fresco del día con guarnición</div>
+        <div class="card-price">$13.900</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── POSTRES ── -->
+<section class="section" id="postres">
+  <div class="section-header">
+    <h2 class="section-title">Postres</h2>
+    <p class="section-subtitle">Para cerrar con dulzura</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=80" alt="Tiramisu" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">☕<span>Tiramisú</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Tiramisú</div>
+        <div class="card-desc">Receta tradicional italiana</div>
+        <div class="card-price">$5.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=400&q=80" alt="Cheesecake" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🍰<span>Cheesecake</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Cheesecake</div>
+        <div class="card-desc">Con coulis de frutos rojos</div>
+        <div class="card-price">$5.900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1464195244916-405fa0a82545?w=400&q=80" alt="Tortas" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.placeholder-img').style.display='flex'">
+        <div class="placeholder-img" style="display:none">🎂<span>Tortas</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Tortas Artesanales</div>
+        <div class="card-desc">Variedad según temporada</div>
+        <div class="card-price">$5.500</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── BEBIDAS ── -->
+<section class="section" id="bebidas">
+  <div class="section-header">
+    <h2 class="section-title">Bebidas</h2>
+    <p class="section-subtitle">Para acompañar</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="bebidas-grid">
+    <div class="bebida-card">
+      <div class="bebida-icon">☕</div>
+      <div class="bebida-name">Café</div>
+      <div class="bebida-price">$2.500</div>
+    </div>
+    <div class="bebida-card">
+      <div class="bebida-icon">🍊</div>
+      <div class="bebida-name">Jugos</div>
+      <div class="bebida-price">$3.500</div>
+    </div>
+    <div class="bebida-card">
+      <div class="bebida-icon">🥤</div>
+      <div class="bebida-name">Bebidas</div>
+      <div class="bebida-price">$2.500</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">Piacere Pastas</div>
+  <div class="footer-text">Cocina Italiana Artesanal</div>
+  <div class="footer-divider"></div>
+  <div class="footer-note">Todos los precios incluyen IVA · Carta sujeta a cambios de temporada</div>
+</footer>
+
+<script>
+  function scrollTo(id, btn) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = document.querySelector('.nav-wrap').offsetHeight;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset - 12;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  // Update nav active on scroll
+  const sections = ['antipasti','pastas','especialidades','pizzas','principales','postres','bebidas'];
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const navOffset = document.querySelector('.nav-wrap').offsetHeight + 30;
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= navOffset + 60) current = id;
+    });
+    navBtns.forEach((btn, i) => {
+      btn.classList.toggle('active', sections[i] === current);
+    });
+  }, { passive: true });
+
+  // Scroll active nav button into view
+  window.addEventListener('scroll', () => {
+    const activeBtn = document.querySelector('.nav-btn.active');
+    if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }, { passive: true });
+</script>
+</body>
+</html>
