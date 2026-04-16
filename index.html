@@ -395,13 +395,13 @@
 <!-- NAV -->
 <nav class="nav-wrap">
   <div class="nav-scroll">
-    <button class="nav-btn active" onclick="scrollTo('antipasti', this)">Antipasti</button>
-    <button class="nav-btn" onclick="scrollTo('pastas', this)">Pastas</button>
-    <button class="nav-btn" onclick="scrollTo('especialidades', this)">Especialidades</button>
-    <button class="nav-btn" onclick="scrollTo('pizzas', this)">Pizzas</button>
-    <button class="nav-btn" onclick="scrollTo('principales', this)">Principales</button>
-    <button class="nav-btn" onclick="scrollTo('postres', this)">Postres</button>
-    <button class="nav-btn" onclick="scrollTo('bebidas', this)">Bebidas</button>
+    <button class="nav-btn active" onclick="scrollToSection('antipasti', this)">Antipasti</button>
+    <button class="nav-btn" onclick="scrollToSection('pastas', this)">Pastas</button>
+    <button class="nav-btn" onclick="scrollToSection('especialidades', this)">Especialidades</button>
+    <button class="nav-btn" onclick="scrollToSection('pizzas', this)">Pizzas</button>
+    <button class="nav-btn" onclick="scrollToSection('principales', this)">Principales</button>
+    <button class="nav-btn" onclick="scrollToSection('postres', this)">Postres</button>
+    <button class="nav-btn" onclick="scrollToSection('bebidas', this)">Bebidas</button>
   </div>
 </nav>
 
@@ -834,7 +834,7 @@
 </footer>
 
 <script>
-  function scrollTo(id, btn) {
+  function scrollToSection(id, btn) {
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const el = document.getElementById(id);
